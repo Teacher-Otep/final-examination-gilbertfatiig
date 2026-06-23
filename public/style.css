@@ -14,7 +14,7 @@ body {
     color: var(--text);
 }
 
-/* Navbar Style */
+
 .navbar {
     background-color: var(--card-bg);
     padding: 1rem 0;
@@ -50,7 +50,7 @@ body {
 
 .nav-btn:hover { background-color: var(--primary); color: white; }
 
-/* Main Layout */
+
 .main-container {
     width: 90%;
     max-width: 800px;
@@ -67,12 +67,12 @@ body {
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* Typography */
+
 .contenttitle { margin-top: 0; color: var(--primary); border-bottom: 2px solid var(--bg); padding-bottom: 10px; }
 .splash { font-size: 2.5rem; color: var(--primary); text-align: center; margin-bottom: 5px; }
 .homecontent p { text-align: center; color: #777; }
 
-/* Forms */
+
 .form-grid { display: flex; flex-direction: column; gap: 15px; }
 .input-group { display: flex; flex-direction: column; }
 .input-group label { font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
@@ -83,12 +83,12 @@ input:focus { border-color: var(--primary); outline: none; }
 .btn-pri { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; flex: 1; }
 .btn-sec { background: #eee; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; }
 
-/* Table */
+
 table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
 th { background: var(--bg); text-align: left; padding: 12px; }
 td { padding: 12px; border-bottom: 1px solid #eee; }
 
-/* Delete List */
+
 .delete-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; align-items: center; }
 .btn-del { color: var(--danger); text-decoration: none; font-weight: 600; font-size: 0.8rem; border: 1px solid var(--danger); padding: 5px 10px; border-radius: 5px; }
 .btn-del:hover { background: var(--danger); color: white; }
