@@ -1,26 +1,41 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "dbstudents");
+// Securely locate and load db.php from the sibling folder
+require_once __DIR__ . '/../includes/db.php';
 
-
-if (isset($_POST['save'])) {
-    $n = $_POST['name']; $s = $_POST['surname']; $m = $_POST['middlename'];
-    $a = $_POST['address']; $c = $_POST['contact'];
-    mysqli_query($conn, "INSERT INTO students (name, surname, middlename, address, contact_number) VALUES ('$n', '$s', '$m', '$a', '$c')");
-    header("Location: index.php?status=success");
-}
-
-
+// Handle UPDATE action cleanly
 if (isset($_POST['update'])) {
-    $id = $_POST['id']; $n = $_POST['name']; $s = $_POST['surname']; $m = $_POST['middlename'];
-    mysqli_query($conn, "UPDATE students SET name='$n', surname='$s', middlename='$m' WHERE id=$id");
-    header("Location: index.php");
+    $id = $_POST['id']; 
+    $n = $_POST['name']; 
+    $s = $_POST['surname']; 
+    $m = $_POST['middlename'];
+    
+    try {
+        $stmt = $pdo->prepare("UPDATE students SET name = :name, surname = :surname, middlename = :middlename WHERE id = :id");
+        $stmt->execute([
+            ':name'       => $n,
+            ':surname'    => $s,
+            ':middlename' => $m,
+            ':id'         => $id
+        ]);
+        header("Location: index.php");
+        exit();
+    } catch (PDOException $e) {
+        die("Update Error: " . $e->getMessage());
+    }
 }
 
-
+// Handle DELETE action cleanly
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    mysqli_query($conn, "DELETE FROM students WHERE id=$id");
-    header("Location: index.php");
+    
+    try {
+        $stmt = $pdo->prepare("DELETE FROM students WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        header("Location: index.php");
+        exit();
+    } catch (PDOException $e) {
+        die("Delete Error: " . $e->getMessage());
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -53,7 +68,7 @@ if (isset($_GET['delete'])) {
         
         <section id="create" class="content card" style="display:none;">
             <h2 class="contenttitle">Register New Student</h2>
-            <form method="POST" class="form-grid">
+            <form action="../includes/insert.php" method="POST" class="form-grid">
                 <div class="input-group"><label>Surname</label><input type="text" name="surname" required></div>
                 <div class="input-group"><label>Name</label><input type="text" name="name" required></div>
                 <div class="input-group"><label>Middle Name</label><input type="text" name="middlename"></div>
@@ -75,9 +90,13 @@ if (isset($_GET['delete'])) {
                     </thead>
                     <tbody>
                         <?php
-                        $res = mysqli_query($conn, "SELECT * FROM students");
-                        while($row = mysqli_fetch_assoc($res)) {
-                            echo "<tr><td>{$row['id']}</td><td>{$row['surname']}</td><td>{$row['name']}</td><td>{$row['middlename']}</td></tr>";
+                        try {
+                            $stmt = $pdo->query("SELECT * FROM students");
+                            while($row = $stmt->fetch()) {
+                                echo "<tr><td>{$row['id']}</td><td>{$row['surname']}</td><td>{$row['name']}</td><td>{$row['middlename']}</td></tr>";
+                            }
+                        } catch (PDOException $e) {
+                            echo "<tr><td colspan='4'>Error reading data: " . $e->getMessage() . "</td></tr>";
                         }
                         ?>
                     </tbody>
@@ -101,12 +120,16 @@ if (isset($_GET['delete'])) {
             <p>Select a student to remove them from the system permanently.</p>
             <div class="delete-list">
                 <?php
-                $res = mysqli_query($conn, "SELECT * FROM students");
-                while($row = mysqli_fetch_assoc($res)) {
-                    echo "<div class='delete-item'>
-                            <span>{$row['name']} {$row['surname']}</span>
-                            <a href='index.php?delete={$row['id']}' class='btn-del'>Delete</a>
-                          </div>";
+                try {
+                    $stmt = $pdo->query("SELECT * FROM students");
+                    while($row = $stmt->fetch()) {
+                        echo "<div class='delete-item'>
+                                <span>{$row['name']} {$row['surname']}</span>
+                                <a href='index.php?delete={$row['id']}' class='btn-del'>Delete</a>
+                              </div>";
+                    }
+                } catch (PDOException $e) {
+                    echo "<div>Error pulling list: " . $e->getMessage() . "</div>";
                 }
                 ?>
             </div>
