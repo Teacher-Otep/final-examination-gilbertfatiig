@@ -1,8 +1,15 @@
 <?php
+// LABEL: Smart path detection to find db.php automatically
+if (file_exists(__DIR__ . '/includes/db.php')) {
+    require_once __DIR__ . '/includes/db.php';
+} else {
+    require_once __DIR__ . '/../includes/db.php';
+}
 
-require_once __DIR__ . '/../includes/db.php';
+// LABEL: Smart path detection for the form submission action
+$form_action = file_exists(__DIR__ . '/includes/insert.php') ? 'includes/insert.php' : '../includes/insert.php';
 
-
+// LABEL: UPDATE student using PDO
 if (isset($_POST['update'])) {
     $id = $_POST['id']; 
     $n = $_POST['name']; 
@@ -24,7 +31,7 @@ if (isset($_POST['update'])) {
     }
 }
 
-
+// LABEL: DELETE student using PDO
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     
@@ -68,7 +75,7 @@ if (isset($_GET['delete'])) {
         
         <section id="create" class="content card" style="display:none;">
             <h2 class="contenttitle">Register New Student</h2>
-            <form action="../includes/insert.php" method="POST" class="form-grid">
+            <form action="<?php echo $form_action; ?>" method="POST" class="form-grid">
                 <div class="input-group"><label>Surname</label><input type="text" name="surname" required></div>
                 <div class="input-group"><label>Name</label><input type="text" name="name" required></div>
                 <div class="input-group"><label>Middle Name</label><input type="text" name="middlename"></div>
