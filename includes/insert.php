@@ -1,5 +1,5 @@
 <?php
-
+// Load db.php from the exact same directory
 require_once __DIR__ . '/db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -22,11 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':contact'    => $contact
         ]);
 
+        // Route out of includes/ and right into public/index.php layout view
         header("Location: ../public/index.php?status=success");
         exit();
         
     } catch (PDOException $e) {
-        echo "Database Error: " . $e->getMessage();
+        die("Database Insertion Error: " . $e->getMessage());
     }
 }
 ?>
