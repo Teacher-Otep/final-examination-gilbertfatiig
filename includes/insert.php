@@ -21,11 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':contact'    => $contact
         ]);
 
-        // LABEL: Smart redirection pathing helper
-        if (file_exists(__DIR__ . '/../public/index.php')) {
-            header("Location: ../public/index.php?status=success");
-        } else {
+        // LABEL: Smart redirection back to your root dashboard location level
+        if (file_exists(__DIR__ . '/../index.php')) {
             header("Location: ../index.php?status=success");
+        } else {
+            header("Location: ../public/index.php?status=success");
         }
         exit();
         
