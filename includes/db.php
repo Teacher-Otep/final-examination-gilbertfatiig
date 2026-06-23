@@ -1,9 +1,9 @@
 <?php
 $host = '127.0.0.1'; 
-$db   = 'dbstudents';  // Aligned to your db structure name
+$db   = 'dbstudents';  
 $user = 'root';        
 $pass = '';            
-$port = '3308';        // Restored to 3308 so your local system connects instantly
+$port = '3306';       
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
