@@ -1,13 +1,12 @@
 <?php
-// LABEL: Smart path detection to find db.php automatically
+// LABEL: Smart path detection to find db.php automatically on your machine or your teacher's
 if (file_exists(__DIR__ . '/includes/db.php')) {
     require_once __DIR__ . '/includes/db.php';
+    $form_action = 'includes/insert.php';
 } else {
     require_once __DIR__ . '/../includes/db.php';
+    $form_action = '../includes/insert.php';
 }
-
-// LABEL: Smart path detection for the form submission action
-$form_action = file_exists(__DIR__ . '/includes/insert.php') ? 'includes/insert.php' : '../includes/insert.php';
 
 // LABEL: UPDATE student using PDO
 if (isset($_POST['update'])) {
