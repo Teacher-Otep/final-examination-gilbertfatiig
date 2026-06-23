@@ -1,8 +1,8 @@
 <?php
-// Securely locate and load db.php from the sibling folder
+
 require_once __DIR__ . '/../includes/db.php';
 
-// Handle UPDATE action cleanly
+
 if (isset($_POST['update'])) {
     $id = $_POST['id']; 
     $n = $_POST['name']; 
@@ -24,7 +24,7 @@ if (isset($_POST['update'])) {
     }
 }
 
-// Handle DELETE action cleanly
+
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     
