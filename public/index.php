@@ -1,7 +1,7 @@
 <?php
 $conn = mysqli_connect("localhost", "root", "", "dbstudents");
 
-
+// SAVE student
 if (isset($_POST['save'])) {
     $n = $_POST['name']; $s = $_POST['surname']; $m = $_POST['middlename'];
     $a = $_POST['address']; $c = $_POST['contact'];
@@ -9,14 +9,14 @@ if (isset($_POST['save'])) {
     header("Location: index.php?status=success");
 }
 
-
+// UPDATE student
 if (isset($_POST['update'])) {
     $id = $_POST['id']; $n = $_POST['name']; $s = $_POST['surname']; $m = $_POST['middlename'];
     mysqli_query($conn, "UPDATE students SET name='$n', surname='$s', middlename='$m' WHERE id=$id");
     header("Location: index.php");
 }
 
-
+// DELETE student
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     mysqli_query($conn, "DELETE FROM students WHERE id=$id");
