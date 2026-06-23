@@ -93,5 +93,5 @@ td { padding: 12px; border-bottom: 1px solid #eee; }
 .btn-del { color: var(--danger); text-decoration: none; font-weight: 600; font-size: 0.8rem; border: 1px solid var(--danger); padding: 5px 10px; border-radius: 5px; }
 .btn-del:hover { background: var(--danger); color: white; }
 
-/* Toast */
+
 .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 12px 30px; border-radius: 50px; display: none; }
